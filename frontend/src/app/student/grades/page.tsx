@@ -2,13 +2,7 @@ import { DashboardLayout } from '@/components/dashboard/layout';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { BarChart, TrendingUp, TrendingDown } from 'lucide-react';
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart"
-import { Bar, CartesianGrid, XAxis, YAxis, BarChart as RechartsBarChart } from "recharts"
+import { TrendingUp, TrendingDown } from 'lucide-react';
 
 const gradesData = [
   { course: 'Calculus II', code: 'MATH-201', grade: 'A-', progress: 92, trend: 'up' },
@@ -16,21 +10,6 @@ const gradesData = [
   { course: 'Introduction to AI', code: 'CS-461', grade: 'A', progress: 95, trend: 'up' },
   { course: 'General Chemistry', code: 'CHEM-101', grade: 'B', progress: 85, trend: 'down' },
 ];
-
-const chartData = [
-  { course: "MATH-201", grade: 92 },
-  { course: "HIST-101", grade: 88 },
-  { course: "CS-461", grade: 95 },
-  { course: "CHEM-101", grade: 85 },
-]
-
-const chartConfig = {
-  grade: {
-    label: "Grade",
-    color: "hsl(var(--primary))",
-  },
-} satisfies import("@/components/ui/chart").ChartConfig
-
 
 export default function GradesPage() {
   const overallGpa = 3.8;
@@ -56,25 +35,20 @@ export default function GradesPage() {
                     <CardDescription>Your grade distribution across all courses.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                   <ChartContainer config={chartConfig} className="h-[200px] w-full">
-                        <RechartsBarChart accessibilityLayer data={chartData}>
-                            <CartesianGrid vertical={false} />
-                            <XAxis
-                            dataKey="course"
-                            tickLine={false}
-                            tickMargin={10}
-                            axisLine={false}
-                            />
-                            <YAxis
-                                domain={[60, 100]}
-                                tickLine={false}
-                                axisLine={false}
-                                tickMargin={10}
-                            />
-                            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-                            <Bar dataKey="grade" fill="var(--color-grade)" radius={8} />
-                        </RechartsBarChart>
-                    </ChartContainer>
+                  <div className="space-y-4">
+                    {gradesData.map((course) => (
+                      <div key={course.code} className="flex items-center justify-between">
+                        <div>
+                          <p className="font-medium">{course.course}</p>
+                          <p className="text-sm text-muted-foreground">{course.code}</p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-lg font-bold">{course.grade}</span>
+                          <span className="text-sm text-muted-foreground">({course.progress}%)</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </CardContent>
             </Card>
         </div>
