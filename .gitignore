@@ -1,0 +1,49 @@
+# Root .gitignore
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Environment files (keep secrets out)
+.env
+.env.local
+.env.*.local
+
+# Frontend (managed in frontend/.gitignore)
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/dist/
+frontend/.vercel
+
+# Backend (managed in backend/.gitignore)
+backend/__pycache__/
+backend/*.py[cod]
+backend/*$py.class
+backend/*.so
+backend/.Python
+backend/venv/
+backend/env/
+backend/ENV/
+backend/.env
+backend/*.egg-info/
+backend/.pytest_cache/
+backend/.mypy_cache/
+
+# Database
+*.db
+*.sqlite3
+
+# Misc
+.modified
