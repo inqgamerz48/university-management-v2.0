@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { LoginForm } from '@/components/auth/login-form';
 
@@ -53,6 +54,15 @@ export default function LoginPage() {
               </p>
             </div>
             <LoginForm />
+            <p className="text-center text-sm text-muted-foreground">
+              Don't have an account?{' '}
+              <Link
+                href="/register"
+                className="text-primary underline-offset-4 hover:underline"
+              >
+                Register here
+              </Link>
+            </p>
             <p className="px-8 text-center text-sm text-muted-foreground">
               By clicking continue, you agree to our{' '}
               <a
