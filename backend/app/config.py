@@ -1,8 +1,6 @@
-"""
-UniManager Pro - FastAPI Backend Configuration
-"""
 
-from typing import List, Optional
+from typing import List, Optional, Union, Any
+from pydantic import AnyHttpUrl, field_validator
 from pydantic_settings import BaseSettings
 from functools import lru_cache
 
@@ -32,8 +30,16 @@ class Settings(BaseSettings):
     SUPABASE_JWT_SECRET: str = ""
     
     # CORS
-    BACKEND_CORS_ORIGINS: List[str] = ["http://localhost:3000", "http://localhost:9002"]
+    BACKEND_CORS_ORIGINS: Union[List[str], str] = []
     
+    @field_validator("BACKEND_CORS_ORIGINS", mode="before")
+    def assemble_cors_origins(cls, v: Union[str, List[str]]) -> Union[List[str], str]:
+        if isinstance(v, str) and not v.startswith("["):
+            return [i.strip() for i in v.split(",")]
+        elif isinstance(v, (list, str)):
+            return v
+        raise ValueError(v)
+
     # Storage
     STORAGE_BUCKET: str = "unimanager-files"
     MAX_FILE_SIZE: int = 10 * 1024 * 1024  # 10MB
@@ -44,13 +50,6 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
         case_sensitive = True
-        
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        # Parse CORS origins if it's a string
-        if isinstance(self.BACKEND_CORS_ORIGINS, str):
-            import json
-            self.BACKEND_CORS_ORIGINS = json.loads(self.BACKEND_CORS_ORIGINS)
 
 
 @lru_cache()
