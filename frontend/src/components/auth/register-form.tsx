@@ -131,8 +131,13 @@ export function RegisterForm({ className, ...props }: React.HTMLAttributes<HTMLD
           </div>
           <h3 className="text-xl font-semibold">Registration Successful!</h3>
           <p className="text-muted-foreground">
-            Your account has been created. You will be redirected to your dashboard.
+            Your account has been created successfully. Please sign in to access your dashboard.
           </p>
+          <Link href="/">
+            <Button className="mt-4">
+              Go to Login
+            </Button>
+          </Link>
         </div>
       </div>
     );

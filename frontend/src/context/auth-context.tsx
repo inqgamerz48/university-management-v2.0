@@ -123,8 +123,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         department: userData.department,
       });
       
-      // After signup, log the user in
-      await login(email, password);
+      // Note: We don't auto-login anymore to avoid race conditions
+      // User will be shown success message and can login manually
     } catch (error: any) {
       throw new Error(error.message || 'Signup failed');
     } finally {
