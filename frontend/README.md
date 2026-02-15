@@ -1,5 +1,12 @@
-# Firebase Studio
+# UniManager Pro Frontend
 
-This is a NextJS starter in Firebase Studio.
+This is the Next.js frontend for UniManager Pro - a university management system.
 
-To get started, take a look at src/app/page.tsx.
+## Getting Started
+
+```bash
+npm install
+npm run dev
+```
+
+Open [http://localhost:9002](http://localhost:9002) to view it in the browser.
